@@ -1,24 +1,38 @@
 # Judge
 
-TODO: Write a gem description
+Spam filter supports Chinese segmentation, based on bayesian inference algorithm.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'judge'
+    gem 'judge', git: 'git://github.com/simsicon/judge.git'
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install judge
-
 ## Usage
 
-TODO: Write usage instructions here
+### Train your corpus
+
+```
+rake -T
+
+NORMAL_PATH=your_normal_path SPAM_PATH=your_spam_path rake train_and_export_corpus
+
+```
+
+### Judge after properly trained
+
+```
+trainer = Judge::Trainer.new
+
+trainer.spam?('今天我吃了一个煎饼果子') # => false
+trainer.spam?('肥胖减肥星座水瓶座') # => true
+```
+
+
 
 ## Contributing
 
