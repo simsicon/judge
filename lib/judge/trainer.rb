@@ -11,7 +11,7 @@ module Judge
     end
 
     def train
-      progress = 0
+      progress = 1
       count = @spam_group.count
       @corpus = {}
 
@@ -28,7 +28,7 @@ module Judge
         end
       end
 
-      progress = 0
+      progress = 1
       count = @normal_group.count
 
       @normal_group.each do |item|
@@ -52,7 +52,8 @@ module Judge
     end
 
     def load_corpus
-      @corpus = ::YAML.load_file(corpus_yaml_file_path) || {} if File.exist? corpus_yaml_file_path
+      File.open(corpus_yaml_file_path, 'w'){} unless File.exist? corpus_yaml_file_path
+      @corpus = ::YAML.load_file(corpus_yaml_file_path) || {}
     end
 
     def spam?(text)
@@ -97,10 +98,7 @@ module Judge
     end
 
     def corpus_yaml_file_path
-      @corpus_yaml_file_path ||= begin
-        Dir.mkdir('corpus') unless Dir.exist?('corpus')
-        File.join(Judge.root, 'corpus', 'corpus.yml')
-      end
+      @corpus_yaml_file_path ||= File.join(Judge.root, 'corpus', 'corpus.yml')
     end
   end
 end
