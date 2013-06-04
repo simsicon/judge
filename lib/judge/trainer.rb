@@ -52,7 +52,7 @@ module Judge
     end
 
     def load_corpus
-      @corpus = ::YAML.load_file(corpus_yaml_file_path) || {}
+      @corpus = ::YAML.load_file(corpus_yaml_file_path) || {} if File.exist? corpus_yaml_file_path
     end
 
     def spam?(text)
