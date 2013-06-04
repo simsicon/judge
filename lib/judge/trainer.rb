@@ -22,7 +22,7 @@ module Judge
         progress += 1
 
         item.words.each do |word|
-          @corpus[word.to_sym] ||= begin
+          @corpus[word.to_s.force_encoding(Encoding::UTF_8)] ||= begin
             { spam_prob: @spam_group.freq(word), normal_prob: @normal_group.freq(word) }
           end
         end
@@ -38,7 +38,7 @@ module Judge
         progress += 1
 
         item.words.each do |word|
-          @corpus[word.to_sym] ||= begin
+          @corpus[word.to_s.force_encoding(Encoding::UTF_8)] ||= begin
             { spam_prob: @spam_group.freq(word), normal_prob: @normal_group.freq(word) }
           end
         end
@@ -69,7 +69,7 @@ module Judge
 
     def probabilities(words)
       words.map do |word|
-        probs = @corpus[word.to_sym]
+        probs = @corpus[word.to_s.force_encoding(Encoding::UTF_8)]
         if probs.nil?
           0.4
         else
