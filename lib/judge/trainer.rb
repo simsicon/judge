@@ -52,7 +52,6 @@ module Judge
     end
 
     def load_corpus
-      File.open(corpus_yaml_file_path, 'w'){} unless File.exist? corpus_yaml_file_path
       @corpus = ::YAML.load_file(corpus_yaml_file_path) || {}
     end
 
@@ -98,7 +97,12 @@ module Judge
     end
 
     def corpus_yaml_file_path
-      @corpus_yaml_file_path ||= File.join(Judge.root, 'corpus', 'corpus.yml')
+      @corpus_yaml_file_path ||= begin
+        _path = File.join(Judge.root, 'corpus', 'corpus.yml')
+        Dir.mkdir('corpus') unless Dir.exist?('corpus')
+        File.open(_path, 'w'){} unless File.exist? _path
+        _path
+      end
     end
   end
 end
