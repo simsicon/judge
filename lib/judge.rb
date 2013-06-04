@@ -10,6 +10,7 @@ require "judge/word"
 require "judge/item"
 require "judge/group"
 require "judge/trainer"
+require "judge/railtie" if defined?(Rails)
 
 require 'rmmseg'
 
