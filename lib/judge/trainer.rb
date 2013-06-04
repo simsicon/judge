@@ -22,7 +22,7 @@ module Judge
         progress += 1
 
         item.words.each do |word|
-          @corpus[word.to_s.force_encoding(Encoding::UTF_8)] ||= begin
+          @corpus[word.to_s] ||= begin
             { spam_prob: @spam_group.freq(word), normal_prob: @normal_group.freq(word) }
           end
         end
@@ -38,7 +38,7 @@ module Judge
         progress += 1
 
         item.words.each do |word|
-          @corpus[word.to_s.force_encoding(Encoding::UTF_8)] ||= begin
+          @corpus[word.to_s] ||= begin
             { spam_prob: @spam_group.freq(word), normal_prob: @normal_group.freq(word) }
           end
         end
@@ -47,7 +47,7 @@ module Judge
 
     def export_corpus
       File.open(corpus_yaml_file_path, 'w') do |out|
-        ::YAML.dump(@corpus, out)
+        out.puts ::YAML.dump(@corpus)
       end
     end
 
@@ -69,7 +69,7 @@ module Judge
 
     def probabilities(words)
       words.map do |word|
-        probs = @corpus[word.to_s.force_encoding(Encoding::UTF_8)]
+        probs = @corpus[word.to_s]
         if probs.nil?
           0.4
         else
