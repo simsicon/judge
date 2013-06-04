@@ -98,8 +98,9 @@ module Judge
 
     def corpus_yaml_file_path
       @corpus_yaml_file_path ||= begin
-        _path = File.join(Judge.root, 'corpus', 'corpus.yml')
-        Dir.mkdir('corpus') unless Dir.exist?('corpus')
+        _dir = File.join(Judge.root, 'corpus')
+        _path = File.join(_dir, 'corpus.yml')
+        Dir.mkdir(_dir) unless Dir.exist?('corpus')
         File.open(_path, 'w'){} unless File.exist? _path
         _path
       end
