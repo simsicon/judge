@@ -1,4 +1,4 @@
-require './lib/judge'
+require 'judge'
 
 namespace :judge do
   desc "Train corpus"
