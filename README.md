@@ -19,17 +19,15 @@ And then execute:
 ```
 rake -T
 
-NORMAL_PATH=your_normal_path SPAM_PATH=your_spam_path rake train_and_export_corpus
+rake judge:train_and_export_corpus[normal_path,spam_path]
 
 ```
 
 ### Judge after properly trained
 
 ```
-trainer = Judge::Trainer.new
-
-trainer.spam?('今天我吃了一个煎饼果子') # => false
-trainer.spam?('肥胖减肥星座水瓶座') # => true
+Judge.spam?('今天我吃了一个煎饼果子') # => false
+Judge.spam?('肥胖减肥星座水瓶座') # => true
 ```
 
 
